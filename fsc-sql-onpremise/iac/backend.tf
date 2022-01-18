@@ -1,3 +1,6 @@
+provider "azurerm" {
+    features {}
+}
 terraform{
     backend "azurerm" {
        resource_group_name = "rg-fullStack-covid19-arturo"
