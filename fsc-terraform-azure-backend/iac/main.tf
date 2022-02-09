@@ -1,14 +1,3 @@
-terraform {
-  required_providers {
-    azurerm = {
-      source  = "hashicorp/azurerm"
-      version = "=2.91.0"
-    }
-  }
-}
-provider "azurerm" {
-    features {}
-}
 resource "azurerm_resource_group" "fsc-rg-main"{
     name = "rg-fullStack-covid19-arturo"
     location = var.location
@@ -35,4 +24,15 @@ resource "azurerm_storage_container" "fsc-container-terraform-state"{
     depends_on = [azurerm_storage_account.fsc-storage-terraform-state]
     name = "container-terraform-state"
     storage_account_name = azurerm_storage_account.fsc-storage-terraform-state.name
+}
+
+output "tfstate-storage-account" {
+  value       = azurerm_storage_account.fsc-storage-terraform-state
+  description = "Azure Storage Account"
+  
+}
+output "resource-group-main" {
+  value       = azurerm_resource_group.fsc-rg-main
+  description = "Resource Group Main"
+  
 }
