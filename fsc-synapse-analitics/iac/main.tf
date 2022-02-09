@@ -13,6 +13,7 @@ resource "azurerm_storage_data_lake_gen2_filesystem" "fsc-datalake-main" {
   storage_account_id = data.terraform_remote_state.remote.outputs.tfstate-storage-account.id
 }
 
+
 resource "azurerm_synapse_workspace" "fsc-synapse-workspace" {
   name                                 = "fsc-synapse-workspace"
   resource_group_name                  = data.terraform_remote_state.remote.outputs.resource-group-main.name
@@ -24,7 +25,7 @@ resource "azurerm_synapse_workspace" "fsc-synapse-workspace" {
 }
 
 resource "azurerm_synapse_sql_pool" "fsc-sql-pool" {
-  name                 = "fsc-dwh-sql"
+  name                 = "fsc_dwh_sql"
   synapse_workspace_id = azurerm_synapse_workspace.fsc-synapse-workspace.id
   sku_name             = "DW100c"
   create_mode          = "Default"
