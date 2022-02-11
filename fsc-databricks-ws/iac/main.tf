@@ -23,7 +23,7 @@ resource "azurerm_databricks_workspace" "fsc-databricks-ws" {
 
   tags = var.tags
 }
- 
+
 data "databricks_node_type" "fsc-db-node-type" {
   local_disk = true
   min_cores   = 4
@@ -43,8 +43,6 @@ resource "databricks_cluster" "fsc-cluster-databricks" {
   spark_version           = data.databricks_spark_version.fsc-spark-version.id
   node_type_id            = data.databricks_node_type.fsc-db-node-type.id
   autotermination_minutes = 50
-  autoscale {
-    min_workers = 2
-    max_workers = 8
-  }
+  num_workers             = 2
 }
+
