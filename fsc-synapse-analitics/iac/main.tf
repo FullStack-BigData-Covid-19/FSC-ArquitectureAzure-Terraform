@@ -1,26 +1,23 @@
 data "terraform_remote_state" "remote" {
     backend = "azurerm"
     config = {
-        resource_group_name = "rg-fullStack-covid19-arturo"
+        resource_group_name = "rg-terraform-state-covid19"
         storage_account_name = "saterraformstatearturo"
         container_name = "container-terraform-state"
-        key            = "backend-resources.tfstate"
+        key            = "datalake.tfstate"
     }
 }
 
-resource "azurerm_storage_data_lake_gen2_filesystem" "fsc-datalake-main" {
-  name               = "fsc-datalake-main"
-  storage_account_id = data.terraform_remote_state.remote.outputs.tfstate-storage-account.id
-}
-
-
 resource "azurerm_synapse_workspace" "fsc-synapse-workspace" {
   name                                 = "fsc-synapse-workspace"
-  resource_group_name                  = data.terraform_remote_state.remote.outputs.resource-group-main.name
-  location                             = data.terraform_remote_state.remote.outputs.resource-group-main.location
-  storage_data_lake_gen2_filesystem_id = azurerm_storage_data_lake_gen2_filesystem.fsc-datalake-main.id
+  resource_group_name                  = data.terraform_remote_state.remote.outputs.rg-datalake.name
+  location                             = data.terraform_remote_state.remote.outputs.rg-datalake.location
+  storage_data_lake_gen2_filesystem_id = data.terraform_remote_state.remote.outputs.raw-container.id
   sql_administrator_login              = "smitexx"
   sql_administrator_login_password     = "Pa5ss19w"
+  identity {
+    type = "SystemAssigned"
+  }
   tags = var.tags
 }
 

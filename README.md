@@ -18,13 +18,14 @@ bash deploy.sh -d y
 
 # Folders explanation
 
-|FolderName|ResourcesDeployed|
-|----------|-----------------|
-|fsc-databricks-ws|DatabricksEnv & DatabricksCluster|
-|fsc-keyVault|Azure KeyVault|
-|fsc-sql-onpremise|Azure Sql Server & Azure Sql DB| (Deprecated)
-|fsc-synapse-analitics|Azure Synapse Workspace & Azure Datalake Gen2 & SQL pool|
-|fsc-terraform-azure-backend|Storage Account and Resource Group|
+|FolderName|ResourcesDeployed|OrderExecution|
+|----------|-----------------|--------------|
+|fsc-init-tfstate-account|Tfstate Storage Account and TfState Resource Group|1|
+|fsc-datalake|Datalake GEN2, 3 ETL containers & Main Resource Group|2|
+|fsc-synapse-analitics|Azure Synapse Workspace & SQL pool|3|
+|fsc-databricks-ws|DatabricksEnv & DatabricksCluster|4|
+|fsc-keyVault|Azure KeyVault|5|
+
 
 
 # Contact

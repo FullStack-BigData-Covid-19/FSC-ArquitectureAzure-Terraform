@@ -8,10 +8,10 @@ provider "azurerm" {
 data "terraform_remote_state" "remote" {
     backend = "azurerm"
     config = {
-        resource_group_name = "rg-fullStack-covid19-arturo"
+        resource_group_name = "rg-terraform-state-covid19"
         storage_account_name = "saterraformstatearturo"
         container_name = "container-terraform-state"
-        key            = "backend-resources.tfstate"
+        key            = "datalake.tfstate"
     }
 }
 
@@ -19,8 +19,8 @@ data "azurerm_client_config" "current" {}
 
 resource "azurerm_key_vault" "fsc-keyvault" {
   name                        = "fsc-keyvault-covid19"
-  location                    = data.terraform_remote_state.remote.outputs.resource-group-main.location
-  resource_group_name         = data.terraform_remote_state.remote.outputs.resource-group-main.name
+  location                    = data.terraform_remote_state.remote.outputs.rg-datalake.location
+  resource_group_name         = data.terraform_remote_state.remote.outputs.rg-datalake.name
   enabled_for_disk_encryption = true
   tenant_id                   = data.azurerm_client_config.current.tenant_id
   soft_delete_retention_days  = 7
