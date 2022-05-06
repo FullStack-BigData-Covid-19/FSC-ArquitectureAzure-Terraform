@@ -1,22 +1,27 @@
 ![alt text](docs/img.jpg)
 
 # FSC-ArquitectureAzure-Covid-19
-Repositorio donde se aloja el código terraform para el despliegue de los recursos necesarios en Azure.
+Repository where it's keeps the terraform code for the deploy of the needed Azure resources.
 
-# Contenido
+# Deploy
 
-# Despliegue
+If you only want to deploy the plan 
 
-Si solo se quiere el plan
 ````
 bash deploy.sh
+
 ````
 
-Si se quiere desplegar el plan y la infraestructura
+If you want to deploy the plan and the infrastructure
 ````
 bash deploy.sh -d y
+
 ````
 
-# Contacto
+# Folders explanation
+
+
+
+# Contact
 
 ```arturo.lorenzo@mdwpartners.com```
