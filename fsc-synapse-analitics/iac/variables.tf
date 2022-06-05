@@ -10,3 +10,7 @@ variable "location" {
     type = string
     default = "westeurope"
 }
+variable "rg_demos" {
+    type = string
+    default = "training_and_demos"
+}

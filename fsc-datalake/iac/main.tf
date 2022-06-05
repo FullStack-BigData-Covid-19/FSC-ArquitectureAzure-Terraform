@@ -1,14 +1,22 @@
-############### RESOURCES ###############
-resource "azurerm_resource_group" "fsc-rg-dl"{
-    name = "rg-covid19-arturo"
-    location = var.location
-    tags = var.tags
+############### DATA ###############
+data "azurerm_subscription" "primary" {
 }
 
+data "azurerm_client_config" "client" {
+}
+data "terraform_remote_state" "remote" {
+    backend = "azurerm"
+    config = {
+        resource_group_name = "training_and_demos"
+        storage_account_name = "saterraformstatearturo"
+        container_name = "container-terraform-state"
+        key            = "service-principal.tfstate"
+    }
+}
+############### RESOURCES ###############
 resource "azurerm_storage_account" "fsc-datalake" {
-    depends_on = [azurerm_resource_group.fsc-rg-dl]
     name = "fscdatalakecovid19"
-    resource_group_name = azurerm_resource_group.fsc-rg-dl.name
+    resource_group_name = "training_and_demos"
     location = var.location
     account_kind = "StorageV2"
     account_tier = "Standard"
@@ -37,6 +45,18 @@ resource "azurerm_storage_data_lake_gen2_filesystem" "enterprise" {
   storage_account_id = azurerm_storage_account.fsc-datalake.id
 }
 
+resource "azurerm_role_assignment" "usuario-dl" {
+  scope                = azurerm_storage_account.fsc-datalake.id
+  role_definition_name = "Storage Blob Data Contributor"
+  principal_id         = data.azurerm_client_config.client.object_id
+}
+resource "azurerm_role_assignment" "sp-dl" {
+  scope                = azurerm_storage_account.fsc-datalake.id
+  role_definition_name = "Storage Blob Data Contributor"
+  principal_id         = data.terraform_remote_state.remote.outputs.service_principal.id
+}
+
+
 ############### OUTPUTS ###############
 output "raw-container" {
   value = azurerm_storage_data_lake_gen2_filesystem.raw
@@ -47,8 +67,3 @@ output "dl-storage-account" {
   description = "Datalake Storage Account"
   
 }
-
-output "rg-datalake" {
-  value       = azurerm_resource_group.fsc-rg-dl
-  description = "Resource Group Main"
-} 

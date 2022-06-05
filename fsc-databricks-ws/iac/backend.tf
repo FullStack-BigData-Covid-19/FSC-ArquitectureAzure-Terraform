@@ -6,7 +6,7 @@ terraform{
     } 
 
     backend "azurerm" {
-       resource_group_name = "rg-terraform-state-covid19"
+       resource_group_name = "training_and_demos"
        storage_account_name = "saterraformstatearturo"
        container_name = "container-terraform-state"
        key = "databricks.tfstate"

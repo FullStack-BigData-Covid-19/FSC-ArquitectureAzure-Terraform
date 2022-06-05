@@ -20,12 +20,12 @@ bash deploy.sh -d y
 
 |FolderName|ResourcesDeployed|OrderExecution|
 |----------|-----------------|--------------|
-|fsc-init-tfstate-account|Tfstate Storage Account and TfState Resource Group|1|
-|fsc-datalake|Datalake GEN2, 3 ETL containers & Main Resource Group|2|
-|fsc-synapse-analitics|Azure Synapse Workspace & SQL pool|3|
-|fsc-databricks-ws|DatabricksEnv & DatabricksCluster|4|
+|fsc-init-tfstate-account|Tfstate Storage Account|1|
+|fsc-service-principal|Service Principal|2|
+|fsc-datalake|Datalake GEN2, 3 ETL containers|3|
+|fsc-synapse-analitics|Azure Synapse Workspace & SQL pool|4|
 |fsc-keyVault|Azure KeyVault|5|
-
+|fsc-databricks-ws|DatabricksEnv & DatabricksCluster|6|
 
 
 # Contact
