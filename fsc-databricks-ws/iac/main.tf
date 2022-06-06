@@ -49,6 +49,13 @@ resource "databricks_cluster" "fsc-cluster-databricks" {
   num_workers             = 1
 }
 
+resource "databricks_library" "fsc-cluster-pylibrary" {
+  cluster_id = databricks_cluster.fsc-cluster-databricks.id
+  pypi {
+    package = "wget"
+  }
+}
+
 resource "databricks_secret_scope" "fsc" {
   name = "fsc-secret-scope"
   initial_manage_principal = "users"
