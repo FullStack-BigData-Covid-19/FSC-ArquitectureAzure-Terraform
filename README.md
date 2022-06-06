@@ -5,14 +5,21 @@ Repository where it's keeps the terraform code for the deploy of the needed Azur
 
 # Deploy
 
-If you only want to deploy the plan 
+If you want to deploy all resources 
+````
+bash deploy_all.sh
+````
+
+If you only want to deploy the plan of one resources folder
 
 ````
+cd resources_folder
 bash deploy.sh
 ````
 
-If you want to deploy the plan and the infrastructure
+If you want to deploy the plan and the infrastructure of one resources folder
 ````
+cd resources_folder
 bash deploy.sh -d y
 ````
 
